@@ -1,5 +1,19 @@
 'use strict';
 
+// Two equal groups make the end of each pass identical to its start.
+(() => {
+  const ticker = document.querySelector('.ticker');
+  if (!ticker) return;
+  const track = ticker.querySelector('.ticker-track');
+  const group = track.querySelector('.ticker-group');
+  track.append(group.cloneNode(true));
+  const updateTickerSpeed = () => {
+    track.style.setProperty('--ticker-duration', `${group.getBoundingClientRect().width / 45}s`);
+  };
+  updateTickerSpeed();
+  new ResizeObserver(updateTickerSpeed).observe(group);
+})();
+
 (() => {
   const menu = document.querySelector('.menu-toggle');
   const navigation = document.querySelector('#navigation');
